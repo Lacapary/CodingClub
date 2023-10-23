@@ -18,7 +18,5 @@ If you're new to R or interested in my journey, feel free to explore the code an
 
 Happy coding! 😄
 
-![R-Learning](https://media.giphy.com/media/v5oAkoW5CUVbq/giphy.gif)
-
 ---
 **Disclaimer**: The tutorials I'll be following are provided by OurCodingClub, and I highly recommend visiting their website for in-depth explanations and additional resources. This repository is meant to document my personal progress and learning experiences.
