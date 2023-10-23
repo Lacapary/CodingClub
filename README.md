@@ -17,6 +17,5 @@ I'll be following tutorials from [OurCodingClub](https://ourcodingclub.github.io
 If you're new to R or interested in my journey, feel free to explore the code and resources in this repository. Don't hesitate to reach out if you have any questions, suggestions, or just want to chat about R.
 
 Happy coding! 😄
-
 ---
 **Disclaimer**: The tutorials I'll be following are provided by OurCodingClub, and I highly recommend visiting their website for in-depth explanations and additional resources. This repository is meant to document my personal progress and learning experiences.
