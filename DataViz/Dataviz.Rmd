@@ -1,10 +1,13 @@
 ---
 title: "DataViz2"
 author: "Camila Pacheco"
-format: markdown
-editor: visual
-date: 23-10-2023
+date: "2023-10-24"
+output: rmarkdown::github_document
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE)
+```
 
 # Vegetation of magical lands
 
@@ -12,15 +15,15 @@ date: 23-10-2023
 
 ## Load libraries
 
-```{r}
-#| {.nooutput .nowarn}
+```{r library, message=FALSE}
+
 library(tidyverse)
 ```
 
 ## Read in data
 
-```{r}
-#|{.nowarn}
+```{r data, message=FALSE}
+
 magic_veg <- read_csv("magic_veg.csv")
 
 ```
@@ -75,7 +78,7 @@ This is the common way of making a histogram, when you have one observation per 
 That looks a bit better, but it still seems to have far too many species. That's because plots from each land are being grouped together. We can separate them by introducing a colour code, and make a stacked bar plot like this:
 
 ```{r}
-#|{.nowarn}
+
 (hist <- ggplot(species_counts, aes(x = plot, y = Species_number, fill = land)) +
   geom_histogram(stat = "identity"))
   
@@ -85,7 +88,7 @@ That looks a bit better, but it still seems to have far too many species. That's
 And if we want to make the columns to appear side by side rather than being stacked, you add `position = "dodge"` to the `geom`'s arguments.
 
 ```{r}
-#|{.nowarn}
+
 (hist <- ggplot(species_counts, aes(x = plot, y = Species_number, fill = land)) +
     geom_histogram(stat = "identity", position = "dodge"))
 ```
@@ -93,7 +96,7 @@ And if we want to make the columns to appear side by side rather than being stac
 Fixing the scale
 
 ```{r}
-#|{.nowarn}
+
 (hist <- ggplot(species_counts, aes(x = plot, y = Species_number, fill = land)) +
     geom_histogram(stat = "identity", position = "dodge") + 
     scale_x_continuous(breaks = c(1,2,3,4,5,6)) + 
@@ -103,7 +106,7 @@ Fixing the scale
 ## Add titles, subtitles, captions and axis labels
 
 ```{r}
-#| {.nowarn}
+
 (hist <- ggplot(species_counts, aes(x = plot, y = Species_number, fill = land)) +
     geom_histogram(stat = "identity", position = "dodge") +
     scale_x_continuous(breaks = c(1,2,3,4,5,6)) + 
@@ -128,7 +131,7 @@ You have the power to customize every aspect of your plot, and one way to do thi
 Adding `theme_bw()` to our plot removes the grey background and replaces it with a white one. There are various other themes built into RStudio, but we personally think this is the cleanest one.
 
 ```{r}
-#|{.nowarn}
+
 (hist <- ggplot(species_counts, aes(x = plot, y = Species_number, fill = land)) +
     geom_histogram(stat = "identity", position = "dodge") + 
     scale_x_continuous(breaks = c(1,2,3,4,5,6)) + 
@@ -146,7 +149,7 @@ Adding `theme_bw()` to our plot removes the grey background and replaces it wi
 ## Fix the legend and customise the colours
 
 ```{r}
-#|{.nowarn}
+
 (hist <- ggplot(species_counts, aes(x = plot, y = Species_number, fill = land)) +
     geom_histogram(stat = "identity", position = "dodge") + 
     scale_x_continuous(breaks = c(1,2,3,4,5,6)) + 
@@ -166,6 +169,6 @@ Adding `theme_bw()` to our plot removes the grey background and replaces it wi
           legend.box.background = element_rect(color = "grey", size = 0.3)))
 ```
 
-```{r}
+```{r saving, eval = FALSE}
 ggsave("magical-sp-rich-hist.png", width = 7, height = 5, dpi = 300)
 ```
