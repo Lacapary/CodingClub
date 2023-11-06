@@ -114,13 +114,12 @@ if (!require("agridat", character.only = TRUE)) {
 } else {
   # If the package is already installed, load it
   library("agridat", character.only = TRUE) }
+
+library(dplyr)
+library(ggplot2)
 ```
 
-    ## Loading required package: agridat
-
 ``` r
-library("agridat")
-
 # Loading the dataset from agridat
 apples <- agridat::archbold.apple
 head(apples)
@@ -170,7 +169,6 @@ and 14 being the levels.
 ``` r
 apples$spacing2 <- as.factor(apples$spacing)
 
-library(ggplot2)
 
 (apples.p <- ggplot(apples, aes(spacing2, yield)) +
     geom_boxplot(fill = "#CD3333", alpha = 0.8, colour = "#8B2323") +
@@ -210,8 +208,8 @@ summary(apples.m)
 <figure>
 <img
 src="https://ourcodingclub.github.io/assets/img/tutorials/modelling/DL_intro_lm_outputs1.png"
-alt="model1" />
-<figcaption aria-hidden="true">model1</figcaption>
+alt="model 1" />
+<figcaption aria-hidden="true">model 1</figcaption>
 </figure>
 
 But let’s take a look at a few other things from the summary output.
@@ -249,21 +247,6 @@ always take the time to assess your model with a critical eye.
 ``` r
 sheep <- agridat::ilri.sheep   # load the data
 
-library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
 sheep <- filter(sheep, ewegen == "R")   # there are confounding variables in this dataset that we don't want to take into account. We'll only consider lambs that come from mothers belonging to the breed "R".
 
 head(sheep)  # overview of the data; we'll focus on weanwt (wean weight) and weanage
@@ -302,7 +285,12 @@ summary(sheep.m1)                                # study the output
     ## Multiple R-squared:  0.201,  Adjusted R-squared:  0.1981 
     ## F-statistic: 70.42 on 1 and 280 DF,  p-value: 2.397e-15
 
-[!model2](https://ourcodingclub.github.io/assets/img/tutorials/modelling/DL_intro_lm_outputs2.png)
+<figure>
+<img
+src="https://ourcodingclub.github.io/assets/img/tutorials/modelling/DL_intro_lm_outputs2.png"
+alt="model 2" />
+<figcaption aria-hidden="true">model 2</figcaption>
+</figure>
 
 ``` r
 sheep.m2 <- lm(weanwt ~ weanage*sex, data = sheep)
@@ -331,8 +319,12 @@ summary(sheep.m2)
     ## Multiple R-squared:  0.2314, Adjusted R-squared:  0.2231 
     ## F-statistic:  27.9 on 3 and 278 DF,  p-value: 8.446e-16
 
-[! model
-3](https://ourcodingclub.github.io/assets/img/tutorials/modelling/DL_intro_lm_outputs3.png)
+<figure>
+<img
+src="https://ourcodingclub.github.io/assets/img/tutorials/modelling/DL_intro_lm_outputs3.png"
+alt="model 3" />
+<figcaption aria-hidden="true">model 3</figcaption>
+</figure>
 
 Let’s write the equations. For a female, which happens to be the
 reference group in the model, it’s fairly simple:
@@ -478,7 +470,7 @@ This will produce a set of four plots:
   Cook’s distances of 0.5 and 1.
 
 ``` r
-plot(apples.m)  # you will have to press Enter in the command line to view the plots
+plot(apples.m)
 ```
 
 ![](Modelling_basics_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->![](Modelling_basics_files/figure-gfm/unnamed-chunk-11-2.png)<!-- -->![](Modelling_basics_files/figure-gfm/unnamed-chunk-11-3.png)<!-- -->![](Modelling_basics_files/figure-gfm/unnamed-chunk-11-4.png)<!-- -->

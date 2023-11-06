@@ -68,7 +68,7 @@ theme.clean <- function(){
 
 This is the data
 
-```{r}
+```{r, library, message=FALSE}
 # Check if the package is already installed
 if (!require("agridat", character.only = TRUE)) {
   # If not installed, install the package
@@ -80,7 +80,12 @@ if (!require("agridat", character.only = TRUE)) {
   # If the package is already installed, load it
   library("agridat", character.only = TRUE) }
 
-library("agridat")
+library(dplyr)
+library(ggplot2)
+
+```
+
+```{r}
 
 # Loading the dataset from agridat
 apples <- agridat::archbold.apple
@@ -93,7 +98,6 @@ We can now make a boxplot to examine our data: - We can check out the effect of 
 ```{r}
 apples$spacing2 <- as.factor(apples$spacing)
 
-library(ggplot2)
 
 (apples.p <- ggplot(apples, aes(spacing2, yield)) +
     geom_boxplot(fill = "#CD3333", alpha = 0.8, colour = "#8B2323") +
@@ -107,7 +111,7 @@ apples.m <- lm(yield ~ spacing2, data = apples)
 summary(apples.m)
 ```
 
-![model1](https://ourcodingclub.github.io/assets/img/tutorials/modelling/DL_intro_lm_outputs1.png)
+![model 1](https://ourcodingclub.github.io/assets/img/tutorials/modelling/DL_intro_lm_outputs1.png)
 
 But let's take a look at a few other things from the summary output. Notice how because spacing2 is a factor, you get results for spacing210 and spacing214. If you are looking for the spacing26 category, that is the intercept: R just picks the first category in an alphabetical order and makes that one the intercept. A very important thing to understand is that the estimates for the other categories are presented relative to the reference level. So, for the 10-m spacing category, the estimated value from the model is not 35.9, but 35.9 + 120.6 = 156.5.
 
@@ -122,7 +126,6 @@ So now, can we say this is a good model? It certainly tells us that spacing has 
 ```{r}
 sheep <- agridat::ilri.sheep   # load the data
 
-library(dplyr)
 sheep <- filter(sheep, ewegen == "R")   # there are confounding variables in this dataset that we don't want to take into account. We'll only consider lambs that come from mothers belonging to the breed "R".
 
 head(sheep)  # overview of the data; we'll focus on weanwt (wean weight) and weanage
@@ -132,14 +135,14 @@ summary(sheep.m1)                                # study the output
 
 ```
 
-[!model2](https://ourcodingclub.github.io/assets/img/tutorials/modelling/DL_intro_lm_outputs2.png)
+![model 2](https://ourcodingclub.github.io/assets/img/tutorials/modelling/DL_intro_lm_outputs2.png)
 
 ```{r}
 sheep.m2 <- lm(weanwt ~ weanage*sex, data = sheep)
 summary(sheep.m2)
 ```
 
-[! model 3](https://ourcodingclub.github.io/assets/img/tutorials/modelling/DL_intro_lm_outputs3.png)
+![model 3](https://ourcodingclub.github.io/assets/img/tutorials/modelling/DL_intro_lm_outputs3.png)
 
 Let's write the equations. For a female, which happens to be the reference group in the model, it's fairly simple:
 
@@ -213,7 +216,7 @@ This will produce a set of four plots:
 - a plot of residuals versus leverage that adds bands corresponding to Cook’s distances of 0.5 and 1.
 
 ```{r}
-plot(apples.m)  # you will have to press Enter in the command line to view the plots
+plot(apples.m)
 ```
 
 # 5. Practicing generalised linear models
