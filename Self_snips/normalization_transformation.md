@@ -1,30 +1,35 @@
----
-title: "Methods for data normalization"
-author: "Camila Pacheco"
-format: gfm
-editor: visual
----
-
-```{r setup, include=FALSE}
-# Load necessary libraries
-library(ggplot2)
-library(MASS)  # Ensure the MASS package is installed
-  ggthemr::ggthemr('fresh')
-```
+# Methods for data normalization
+Camila Pacheco
 
 # Introduction
 
-Data normalization is a crucial step in the data preprocessing pipeline, aiming to enhance the performance of analytical techniques and machine learning models by ensuring that the data features are on a consistent scale. In this exploration, we delve into various data normalization methods implemented in R. Each method serves a unique purpose, addressing specific challenges such as outliers, skewed distributions, or varying scales among features.
+Data normalization is a crucial step in the data preprocessing pipeline,
+aiming to enhance the performance of analytical techniques and machine
+learning models by ensuring that the data features are on a consistent
+scale. In this exploration, we delve into various data normalization
+methods implemented in R. Each method serves a unique purpose,
+addressing specific challenges such as outliers, skewed distributions,
+or varying scales among features.
 
-We will showcase the advantages and disadvantages of popular normalization techniques, providing practical examples along with visualizations using the `ggplot2` library. These examples will illustrate how each method transforms the distribution of data, allowing you to make informed decisions based on your specific data characteristics and analytical goals.
+We will showcase the advantages and disadvantages of popular
+normalization techniques, providing practical examples along with
+visualizations using the `ggplot2` library. These examples will
+illustrate how each method transforms the distribution of data, allowing
+you to make informed decisions based on your specific data
+characteristics and analytical goals.
 
-Whether you are preparing data for statistical analyses or machine learning applications, understanding and applying appropriate normalization methods can significantly impact the accuracy and reliability of your results. Join us on this journey through diverse normalization techniques to gain insights into their application and effects on data distributions.
+Whether you are preparing data for statistical analyses or machine
+learning applications, understanding and applying appropriate
+normalization methods can significantly impact the accuracy and
+reliability of your results. Join us on this journey through diverse
+normalization techniques to gain insights into their application and
+effects on data distributions.
 
 Happy Learning!! :)
 
 # Functions definitions
 
-```{r functions, echo=TRUE}
+``` r
 min_max_scaling <- function(x) {
   return((x - min(x)) / (max(x) - min(x)))
 }
@@ -63,14 +68,13 @@ feature_scaling <- function(x) {
   scaled_features <- scale(x)
   return(scaled_features)
 }
-
 ```
 
 # Data example
 
-First let's look to a not normal distributed data example
+First let’s look to a not normal distributed data example
 
-```{r data, echo=TRUE}
+``` r
 set.seed(13)
 # Example data
 data <- data <- rexp(100, rate = 0.5)
@@ -83,23 +87,24 @@ ggplot() +
   scale_fill_manual(values = c("lightblue"))
 ```
 
+![](normalization_transformation_files/figure-commonmark/data-1.png)
+
 **Now lets transform the data**
 
 # Min-Max Scaling
 
 ## Advantages
 
--   Simple and easy to implement.
--   Maintains the original distribution shape.
+- Simple and easy to implement.
+- Maintains the original distribution shape.
 
 ## Disadvantages
 
--   Sensitive to outliers.
+- Sensitive to outliers.
 
 ## Example
 
-```{r min_max_example, echo=TRUE}
-
+``` r
 # Plotting data distribution before and after Min-Max Scaling
 ggplot() +
   geom_density(aes(x = data), fill = "lightblue", alpha = 0.5, color = "black", linetype = "dashed") +
@@ -110,22 +115,22 @@ ggplot() +
   scale_fill_manual(values = c("lightblue", "lightgreen"))
 ```
 
+![](normalization_transformation_files/figure-commonmark/min_max_example-1.png)
+
 # Z-Score Standardization
 
 ## Advantages
 
--   Maintains the shape of the original distribution.
--   Less sensitive to outliers compared to Min-Max Scaling.
+- Maintains the shape of the original distribution.
+- Less sensitive to outliers compared to Min-Max Scaling.
 
 ## Disadvantages
 
--   Does not handle non-normally distributed data well.
+- Does not handle non-normally distributed data well.
 
 ## Example
 
-```{r z_score, echo=TRUE}
-
-
+``` r
 # Plotting data distribution before and after Z-Score Standardization
 ggplot() +
   geom_density(aes(x = data), fill = "lightblue", alpha = 0.5, color = "black", linetype = "dashed") +
@@ -134,24 +139,25 @@ ggplot() +
        x = "Value",
        y = "Density") +
   scale_fill_manual(values = c("lightblue", "lightgreen"))
-
-
 ```
+
+![](normalization_transformation_files/figure-commonmark/z_score-1.png)
 
 # Robust Scaling
 
 ## Advantages
 
--   Robust to outliers due to the use of the median and interquartile range.
+- Robust to outliers due to the use of the median and interquartile
+  range.
 
 ## Disadvantages
 
--   May not perform well if the data distribution is significantly different from a normal distribution.
+- May not perform well if the data distribution is significantly
+  different from a normal distribution.
 
 ## Example
 
-```{r robsut_scaling_example, echo=TRUE}
-
+``` r
 # Plotting data distribution before and after Robust Scaling
 ggplot() +
   geom_density(aes(x = data), fill = "lightblue", alpha = 0.5, color = "black", linetype = "dashed") +
@@ -160,23 +166,24 @@ ggplot() +
        x = "Value",
        y = "Density") +
   scale_fill_manual(values = c("lightblue", "lightgreen"))
-
 ```
+
+![](normalization_transformation_files/figure-commonmark/robsut_scaling_example-1.png)
 
 # Log Transformation
 
 ## Advantages
 
--   Stabilizes variance in data.
--   Useful for dealing with highly skewed data.
+- Stabilizes variance in data.
+- Useful for dealing with highly skewed data.
 
 ## Disadvantages
 
--   Not applicable for zero or negative values.
+- Not applicable for zero or negative values.
 
 ## Example
 
-```{r log_example, echo=TRUE}
+``` r
 # Plotting data distribution before and after Log Transformation
 ggplot() +
   geom_density(aes(x = data), fill = "lightblue", alpha = 0.5, color = "black", linetype = "dashed") +
@@ -187,20 +194,22 @@ ggplot() +
   scale_fill_manual(values = c("lightblue", "lightgreen"))
 ```
 
+![](normalization_transformation_files/figure-commonmark/log_example-1.png)
+
 # Quantile Transformation
 
 ## Advantages
 
--   Transforms data to a uniform distribution.
--   Robust to outliers.
+- Transforms data to a uniform distribution.
+- Robust to outliers.
 
 ## Disadvantages
 
--   May not work well for small datasets.
+- May not work well for small datasets.
 
 ## Example
 
-```{r quantile_t, echo=TRUE}
+``` r
 # Plotting data distribution before and after Quantile Transformation
 ggplot() +
   geom_density(aes(x = data), fill = "lightblue", alpha = 0.5, color = "black", linetype = "dashed") +
@@ -211,19 +220,23 @@ ggplot() +
   scale_fill_manual(values = c("lightblue", "lightgreen"))
 ```
 
+    Warning: Removed 1 rows containing non-finite values (`stat_density()`).
+
+![](normalization_transformation_files/figure-commonmark/quantile_t-1.png)
+
 # Power Transformation (Square Root)
 
 ## Advantages
 
--   Mitigates the impact of extreme values.
+- Mitigates the impact of extreme values.
 
 ## Disadvantages
 
--   Not suitable for all types of data.
+- Not suitable for all types of data.
 
 ## Example
 
-```{r power, echo=TRUE}
+``` r
 # Plotting data distribution before and after Power Transformation (Square Root)
 ggplot() +
   geom_density(aes(x = data), fill = "lightblue", alpha = 0.5, color = "black", linetype = "dashed") +
@@ -234,19 +247,21 @@ ggplot() +
   scale_fill_manual(values = c("lightblue", "lightgreen"))
 ```
 
+![](normalization_transformation_files/figure-commonmark/power-1.png)
+
 # Winsorizing
 
 ## Advantages
 
--   Effective in reducing the impact of outliers.
+- Effective in reducing the impact of outliers.
 
 ## Disadvantages
 
--   Alters the distribution of the data.
+- Alters the distribution of the data.
 
 ## Example
 
-```{r winsorizing, echo=TRUE}
+``` r
 # Plotting data distribution before and after Winsorizing
 # Plotting data distribution before and after Normalization by Feature Scaling
 ggplot() +
@@ -258,20 +273,22 @@ ggplot() +
   scale_fill_manual(values = c("lightblue", "lightgreen"))
 ```
 
+![](normalization_transformation_files/figure-commonmark/winsorizing-1.png)
+
 # Normalization by Feature Scaling
 
 ## Advantages
 
--   Scales each feature independently.
--   Useful when features have different units or scales.
+- Scales each feature independently.
+- Useful when features have different units or scales.
 
 ## Disadvantages
 
--   May not handle outliers well.
+- May not handle outliers well.
 
 ## Example
 
-```{r feature_Scaling, echo=TRUE}
+``` r
 # Plotting data distribution before and after Normalization by Feature Scaling
 ggplot() +
   geom_density(aes(x = data), fill = "lightblue", alpha = 0.5, color = "black", linetype = "dashed") +
@@ -281,3 +298,5 @@ ggplot() +
        y = "Density") +
   scale_fill_manual(values = c("lightblue", "lightgreen"))
 ```
+
+![](normalization_transformation_files/figure-commonmark/feature_Scaling-1.png)
