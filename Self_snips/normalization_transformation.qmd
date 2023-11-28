@@ -6,6 +6,7 @@ editor: visual
 output:
   quarto::quarto_html:
     toc: true
+    embed-resources: true
 ---
 
 ```{r setup, include=FALSE}
@@ -14,6 +15,7 @@ library(ggplot2)
 library(MASS)  # Ensure the MASS package is installed
   ggthemr::ggthemr('fresh')
 ```
+
 # Introduction
 
 Data normalization is a crucial step in the data preprocessing pipeline, aiming to enhance the performance of analytical techniques and machine learning models by ensuring that the data features are on a consistent scale. In this exploration, we delve into various data normalization methods implemented in R. Each method serves a unique purpose, addressing specific challenges such as outliers, skewed distributions, or varying scales among features.
@@ -69,7 +71,9 @@ feature_scaling <- function(x) {
 ```
 
 # Data example
+
 First let's look to a not normal distributed data example
+
 ```{r data, echo=TRUE}
 set.seed(13)
 # Example data
@@ -83,7 +87,7 @@ ggplot() +
   scale_fill_manual(values = c("lightblue"))
 ```
 
-**Now lets transform the data** 
+**Now lets transform the data**
 
 # Min-Max Scaling
 
@@ -117,8 +121,9 @@ ggplot() +
 -   Maintains the shape of the original distribution.
 -   Less sensitive to outliers compared to Min-Max Scaling.
 
-## Disadvantages 
-- Does not handle non-normally distributed data well.
+## Disadvantages
+
+-   Does not handle non-normally distributed data well.
 
 ## Example
 
@@ -185,7 +190,6 @@ ggplot() +
        y = "Density") +
   scale_fill_manual(values = c("lightblue", "lightgreen"))
 ```
-
 
 # Quantile Transformation
 
